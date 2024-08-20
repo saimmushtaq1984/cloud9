@@ -2,22 +2,18 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      java: corretto8
-  pre_build:
     commands:
-      - echo Initializing environment
-      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain unicorns --domain-owner 058264534148 --query authorizationToken --output text`
+      - echo Installing dependencies...
+      # Add any installation commands here
   build:
     commands:
-      - echo Build started on `date`
-      - mvn -s settings.xml compile
-  post_build:
-    commands:
-      - echo Build completed on `date`
-      - mvn -s settings.xml package
+      - echo Building the project...
+      # Add your build commands here
+
 artifacts:
   files:
-    - target/unicorn-web-project.war
-  discard-paths: no
+    - target/unicorn-web-project.war   # Ensure this WAR file is correctly built
+    - appspec.yml                      # Include the appspec.yml file
+    - scripts/**/*                     # Include all files in the scripts directory
+  discard-paths: no                    # Retain directory structure in the artifact
 
