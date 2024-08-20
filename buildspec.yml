@@ -1,37 +1,15 @@
-version: 0.0
-os: linux
-files:
-  - source: /target/unicorn-web-project.war
-    destination: /usr/share/tomcat/webapps/
-hooks:
-  BeforeInstall:
-    - location: scripts/install_dependencies.sh
-      timeout: 300
-      runas: root
-  ApplicationStart:
-    - location: scripts/start_server.sh
-      timeout: 300
-      runas: root
-  ApplicationStop:
-    - location: scripts/stop_server.sh
-      timeout: 300
-      runas: root
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - echo Installing dependencies...
-      # Add any installation commands here
   build:
     commands:
-      - echo Building the project...
-      # Add your build commands here
+      - echo "Building the project..."
+      - mvn clean package  # Example build command, replace with your own
 
 artifacts:
   files:
-    - target/unicorn-web-project.war   # Ensure this WAR file is correctly built
-    - appspec.yml                      # Include the appspec.yml file
-    - scripts/**/*                     # Include all files in the scripts directory
-  discard-paths: no                    # Retain directory structure in the artifact
+    - target/unicorn-web-project.war
+    - appspec.yml
+    - scripts/**/*
+  discard-paths: no
 
